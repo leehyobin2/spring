@@ -1,12 +1,4 @@
 # 🏢 AIスマートオフィス・入退室管理ダッシュボード
-<p align="center">
-  <img src="https://shields.io" alt="HTML5">
-  <img src="https://shields.io" alt="CSS3">
-  <img src="https://shields.io" alt="JavaScript">
-  <img src="https://shields.io" alt="Codex">
-  <img src="https://shields.io" alt="Git">
-  <img src="https://shields.io" alt="GitHub Pages">
-</p>
 
 > **💡 OpenAI Codexエージェントとの革新的な協業による、株式会社セキュア（SECURE）模擬プロトタイプ開発プロジェクト**
 
