@@ -20,4 +20,53 @@
 <section class="panel pad"><h2 class="pt">出退勤登録</h2><p class="hint">登録時刻を操作履歴に記録します。</p><div class="actions"><button class="btn" data-action="出勤">出勤登録</button><button class="btn out" data-action="退勤">退勤登録</button></div></section></div></div>
 <section class="panel history"><div class="ph"><div><h2 class="pt">操作履歴</h2><p class="hint">出退勤登録を新しい順に表示します。</p></div></div><div class="empty" id="empty">出退勤登録の履歴はありません。</div><div id="entries" aria-live="polite"></div></section>
 <footer>株式会社セキュア　|　AIスマートオフィス・入退室管理ダッシュボード　|　画面イメージ</footer></main>
-<script>(()=>{const date=document.getElementById('today'),clock=document.getElementById('clock'),entries=document.getElementById('entries'),empty=document.getElementById('empty');function tick(){const n=new Date();date.textContent=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'}).format(n);clock.textContent=new Intl.DateTimeFormat('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(n)}function record(action){const n=new Date(),row=document.createElement('div'),time=document.createElement('time'),message=document.createElement('strong');row.className='entry';time.dateTime=n.toISOString();time.textContent=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false}).format(n);message.textContent=action+'登録が完了しました';row.append(time,message);entries.prepend(row);empty.hidden=true}document.querySelectorAll('[data-action]').forEach(b=>b.addEventListener('click',()=>record(b.dataset.action)));tick();setInterval(tick,1000)})();</script></body></html>
+<script>
+(()=> {
+  const date=document.getElementById('today');
+  const clock=document.getElementById('clock');
+  const entries=document.getElementById('entries');
+  const empty=document.getElementById('empty');
+  const cameraPanel=document.querySelector('.grid > .panel');
+  const logHeading=cameraPanel.querySelector('.ph');
+  const logMessages=[
+    {place:'1F 受付カメラ',detail:'訪問者を検知 (ID: GUEST-99)',status:'訪問者検知',warning:false},
+    {place:'3F 執務室入口',detail:'マスク未着用者を検知 (警告)',status:'警告',warning:true},
+    {place:'外周監視カメラ04',detail:'不審な居残りを検知 (要確認)',status:'要確認',warning:true},
+    {place:'2F 会議室A',detail:'人数超過を検知 (制限: 6名 / 現在: 8名)',status:'要確認',warning:true},
+    {place:'4F 役員室前',detail:'正社員認証成功 (ID: SECURE-702)',status:'認証成功',warning:false}
+  ];
+  const dateFormat=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
+  const timeFormat=new Intl.DateTimeFormat('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+  function tick(){
+    const now=new Date();
+    date.textContent=dateFormat.format(now);
+    clock.textContent=timeFormat.format(now);
+  }
+  function record(action){
+    const now=new Date(),row=document.createElement('div'),time=document.createElement('time'),message=document.createElement('strong');
+    row.className='entry';time.dateTime=now.toISOString();
+    time.textContent=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(now);
+    message.textContent=action+'登録が完了しました';
+    row.append(time,message);entries.prepend(row);empty.hidden=true;
+  }
+  function addCameraLog(){
+    const data=logMessages[Math.floor(Math.random()*logMessages.length)];
+    const now=new Date(),row=document.createElement('div'),time=document.createElement('time'),content=document.createElement('div'),place=document.createElement('div'),detail=document.createElement('div'),status=document.createElement('span');
+    row.className='log';
+    time.className='time';time.dateTime=now.toISOString();time.textContent=timeFormat.format(now);
+    place.className='place';place.textContent=data.place;
+    detail.className='detail';detail.textContent=data.detail;
+    content.append(place,detail);
+    status.className=data.warning?'tag warn':'tag';status.textContent=data.status;
+    row.append(time,content,status);
+    cameraPanel.insertBefore(row,logHeading.nextSibling);
+    const rows=cameraPanel.querySelectorAll('.log');
+    if(rows.length>12) rows[rows.length-1].remove();
+    window.setTimeout(addCameraLog,3000+Math.random()*2000);
+  }
+  cameraPanel.setAttribute('aria-live','polite');
+  cameraPanel.setAttribute('aria-relevant','additions');
+  document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>record(button.dataset.action)));
+  tick();window.setInterval(tick,1000);window.setTimeout(addCameraLog,3000+Math.random()*2000);
+})();
+</script></body></html>
