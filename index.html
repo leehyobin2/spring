@@ -1,67 +1,56 @@
 <!doctype html>
-<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0A192F"><title>AIスマートオフィス・入退室管理ダッシュボード | 株式会社セキュア</title><style>
-*{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:#17283d;font-family:"Noto Sans JP","Yu Gothic UI",Meiryo,sans-serif;line-height:1.6}.top{height:70px;background:#0A192F;color:white;display:flex;align-items:center;justify-content:space-between;padding:0 max(22px,calc((100vw - 1240px)/2))}.brand{font-weight:700;letter-spacing:.04em}.brand small{display:block;color:#a9bcd1;font-weight:400;font-size:10px}.right{font-size:12px;color:#d2deea}.wrap{max-width:1240px;width:calc(100% - 40px);margin:auto;padding:30px 0 50px}.heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.eyebrow{font-size:11px;color:#2878d0;font-weight:bold;letter-spacing:.12em;margin:0 0 4px}h1{font-size:clamp(22px,3vw,30px);color:#0A192F;margin:0}.desc{font-size:13px;color:#728198;margin:6px 0 0}.date{background:white;border:1px solid #e5ebf2;padding:8px 12px;border-radius:8px;font-size:12px;color:#50627a}.metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card,.panel{background:white;border:1px solid #e5ebf2;border-radius:12px;box-shadow:0 10px 28px #102a480c}.card{padding:17px;min-height:132px}.label{font-size:12px;color:#62728a}.value{font-size:30px;font-weight:750;color:#0A192F;margin-top:8px}.value small{font-size:13px;color:#53657b}.sub{font-size:11px;color:#15936b}.grid{display:grid;grid-template-columns:1.5fr .85fr;gap:16px;margin-top:17px}.panel{overflow:hidden}.ph{padding:15px 18px;border-bottom:1px solid #edf1f6;display:flex;justify-content:space-between;align-items:center}.pt{font-size:15px;color:#0A192F;font-weight:750;margin:0}.hint{font-size:11px;color:#8794a5;margin:3px 0 0}.live{background:#eaf8f3;color:#147c5e;border-radius:20px;padding:4px 9px;font-size:10px}.log{min-height:61px;padding:9px 18px;display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid #f0f3f7}.log:last-child{border:0}.time{font-size:11px;color:#708099}.place{font-size:12px;font-weight:700;color:#25374d}.detail{font-size:10px;color:#8491a2}.tag{font-size:10px;color:#16805f;background:#eaf8f3;border-radius:5px;padding:4px 7px}.tag.warn{background:#fff5e7;color:#a66a13}.stack{display:grid;gap:16px}.pad{padding:16px 18px}.map{height:145px;background:#f1f6fa;border:1px solid #dfe8f1;border-radius:8px;margin-top:10px;position:relative}.room{position:absolute;top:45px;height:75px;background:white;border:1px solid #c9d9e8;border-radius:5px;display:grid;place-items:center;font-size:10px;color:#657890}.r1{left:7%;width:40%}.r2{left:50%;width:22%}.r3{right:6%;width:21%}.dot{position:absolute;top:37px;width:10px;height:10px;border-radius:50%;background:#2878d0;box-shadow:0 0 0 4px #2878d025}.d1{left:12%}.d2{left:56%}.d3{right:12%}.legend{font-size:10px;color:#718198;margin-top:8px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.btn{height:43px;border:1px solid #2878d0;border-radius:7px;background:#2878d0;color:white;font-weight:700;font-size:12px;cursor:pointer}.btn:hover{background:#1c68ba}.btn.out{background:white;color:#0A192F;border-color:#d7e0ea}.btn:focus-visible{outline:3px solid #4cc9e8;outline-offset:2px}.history{margin-top:17px}.empty{text-align:center;color:#8794a5;font-size:11px;padding:22px}.entry{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:11px 18px;border-bottom:1px solid #f0f3f7;font-size:11px}.entry time{color:#8491a2}.entry strong{color:#33475f}footer{text-align:center;color:#8996a6;font-size:10px;padding-top:22px}
-@media(max-width:850px){.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.stack{grid-template-columns:1fr 1fr}}@media(max-width:560px){.wrap{width:calc(100% - 26px);padding-top:22px}.top{padding:0 14px}.heading{align-items:start;flex-direction:column;gap:10px}.metrics{gap:9px}.card{padding:13px;min-height:120px}.value{font-size:26px}.stack{grid-template-columns:1fr}.log{grid-template-columns:60px 1fr auto;gap:6px;padding:9px 12px}.place{font-size:11px}.ph{padding:14px}.entry{grid-template-columns:1fr;gap:3px;padding:10px 14px}}
-</style></head><body>
-<header class="top"><div class="brand">株式会社セキュア<small>スマートオフィス管理システム</small></div><div class="right">● システム稼働中　 <span id="clock"></span></div></header>
-<main class="wrap"><section class="heading"><div><p class="eyebrow">オフィスセキュリティ・運用ダッシュボード</p><h1>AIスマートオフィス・入退室管理ダッシュボード</h1><p class="desc">AI映像解析と入退室情報を一元管理し、オフィスの状況をリアルタイムに可視化します。</p></div><div class="date" id="today"></div></section>
-<section class="metrics" aria-label="オフィスの現在状況">
-<article class="card"><div class="label">リアルタイム社内残留人数</div><div class="value">42 <small>名</small></div><div class="sub">通常範囲内　全フロア合計</div></article>
-<article class="card"><div class="label">本日の入館者数</div><div class="value">68 <small>名</small></div><div class="sub">前営業日比 +4名</div></article>
-<article class="card"><div class="label">稼働中のAIカメラ</div><div class="value">12 <small>台 / 12台</small></div><div class="sub">すべて正常に稼働</div></article>
-<article class="card"><div class="label">未確認の通知</div><div class="value">1 <small>件</small></div><div class="sub" style="color:#a66a13">確認が必要な通知があります</div></article></section>
-<div class="grid"><section class="panel"><div class="ph"><div><h2 class="pt">AIカメラ検知ログ</h2><p class="hint">オフィス内の認証・検知状況</p></div><span class="live">リアルタイム</span></div>
-<div class="stack"><section class="panel pad"><h2 class="pt">フロア稼働状況</h2><p class="hint">3階　カメラ配置と検知エリア</p><div class="map" role="img" aria-label="3階フロア概略図。執務エリア、会議室、受付にカメラを配置"><span class="room r1">執務エリア</span><span class="room r2">会議室</span><span class="room r3">受付</span><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i></div><div class="legend">● カメラ稼働中　　検知エリア 3か所</div></section>
-<section class="panel pad"><h2 class="pt">出退勤登録</h2><p class="hint">登録時刻を操作履歴に記録します。</p><div class="actions"><button class="btn" data-action="出勤">出勤登録</button><button class="btn out" data-action="退勤">退勤登録</button></div></section></div></div>
-<section class="panel history"><div class="ph"><div><h2 class="pt">操作履歴</h2><p class="hint">出退勤登録を新しい順に表示します。</p></div></div><div class="empty" id="empty">出退勤登録の履歴はありません。</div><div id="entries" aria-live="polite"></div></section>
-<footer>株式会社セキュア　|　AIスマートオフィス・入退室管理ダッシュボード　|　画面イメージ</footer></main>
-<script>
-(()=> {
-  const date=document.getElementById('today');
-  const clock=document.getElementById('clock');
-  const entries=document.getElementById('entries');
-  const empty=document.getElementById('empty');
-  const cameraPanel=document.querySelector('.grid > .panel');
-  const logHeading=cameraPanel.querySelector('.ph');
-  const logMessages=[
-    {place:'1F 受付カメラ',detail:'訪問者を検知 (ID: GUEST-99)',status:'訪問者検知',warning:false},
-    {place:'3F 執務室入口',detail:'マスク未着用者を検知 (警告)',status:'警告',warning:true},
-    {place:'外周監視カメラ04',detail:'不審な居残りを検知 (要確認)',status:'要確認',warning:true},
-    {place:'2F 会議室A',detail:'人数超過を検知 (制限: 6名 / 現在: 8名)',status:'要確認',warning:true},
-    {place:'4F 役員室前',detail:'正社員認証成功 (ID: SECURE-702)',status:'認証成功',warning:false}
-  ];
-  const dateFormat=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'});
-  const timeFormat=new Intl.DateTimeFormat('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
-  function tick(){
-    const now=new Date();
-    date.textContent=dateFormat.format(now);
-    clock.textContent=timeFormat.format(now);
-  }
-  function record(action){
-    const now=new Date(),row=document.createElement('div'),time=document.createElement('time'),message=document.createElement('strong');
-    row.className='entry';time.dateTime=now.toISOString();
-    time.textContent=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(now);
-    message.textContent=action+'登録が完了しました';
-    row.append(time,message);entries.prepend(row);empty.hidden=true;
-  }
-  function addCameraLog(){
-    const data=logMessages[Math.floor(Math.random()*logMessages.length)];
-    const now=new Date(),row=document.createElement('div'),time=document.createElement('time'),content=document.createElement('div'),place=document.createElement('div'),detail=document.createElement('div'),status=document.createElement('span');
-    row.className='log';
-    time.className='time';time.dateTime=now.toISOString();time.textContent=timeFormat.format(now);
-    place.className='place';place.textContent=data.place;
-    detail.className='detail';detail.textContent=data.detail;
-    content.append(place,detail);
-    status.className=data.warning?'tag warn':'tag';status.textContent=data.status;
-    row.append(time,content,status);
-    cameraPanel.insertBefore(row,logHeading.nextSibling);
-    const rows=cameraPanel.querySelectorAll('.log');
-    if(rows.length>12) rows[rows.length-1].remove();
-    window.setTimeout(addCameraLog,3000+Math.random()*2000);
-  }
-  cameraPanel.setAttribute('aria-live','polite');
-  cameraPanel.setAttribute('aria-relevant','additions');
-  document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>record(button.dataset.action)));
-  tick();window.setInterval(tick,1000);window.setTimeout(addCameraLog,3000+Math.random()*2000);
-})();
-</script></body></html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10243a">
+  <meta name="description" content="運用状況と主要指標をひと目で確認できる、汎用ダッシュボードのポートフォリオ">
+  <title>SENTINEL 監視ダッシュボード | ポートフォリオ</title>
+  <style>
+    :root{color-scheme:light;--navy:#10243a;--blue:#2878d0;--ink:#1d3046;--muted:#718198;--line:#e5ebf2;--green:#16805f;--amber:#a66a13}
+    *{box-sizing:border-box}body{margin:0;background:#f3f6fa;color:var(--ink);font-family:Inter,"Noto Sans KR","Malgun Gothic",sans-serif;line-height:1.6}
+    .top{min-height:70px;background:var(--navy);color:white;display:flex;align-items:center;justify-content:space-between;padding:12px max(22px,calc((100vw - 1240px)/2))}.brand{font-weight:750;letter-spacing:.03em}.brand small{display:block;color:#a9bcd1;font-weight:400;font-size:10px}.clock{font-size:12px;color:#d2deea}
+    .wrap{max-width:1240px;width:calc(100% - 40px);margin:auto;padding:30px 0 50px}.heading{display:flex;justify-content:space-between;align-items:end;margin-bottom:22px}.eyebrow{font-size:11px;color:var(--blue);font-weight:750;letter-spacing:.12em;margin:0 0 4px}h1{font-size:clamp(23px,3vw,31px);color:var(--navy);margin:0}.desc{font-size:13px;color:var(--muted);margin:6px 0 0}.date{background:white;border:1px solid var(--line);padding:8px 12px;border-radius:8px;font-size:12px;color:#50627a}
+    .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}.card,.panel{background:white;border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 28px #102a480c}.card{padding:17px;min-height:132px}.label{font-size:12px;color:#62728a}.value{font-size:30px;font-weight:750;color:var(--navy);margin-top:8px}.value small{font-size:13px;color:#53657b}.sub{font-size:11px;color:var(--green)}.sub.warn{color:var(--amber)}
+    .grid{display:grid;grid-template-columns:1.5fr .85fr;gap:16px;margin-top:17px}.panel{overflow:hidden}.ph{padding:15px 18px;border-bottom:1px solid #edf1f6;display:flex;justify-content:space-between;align-items:center}.pt{font-size:15px;color:var(--navy);font-weight:750;margin:0}.hint{font-size:11px;color:#8794a5;margin:3px 0 0}.live{background:#eaf8f3;color:#147c5e;border-radius:20px;padding:4px 9px;font-size:10px}.log{min-height:61px;padding:9px 18px;display:grid;grid-template-columns:70px 1fr auto;gap:10px;align-items:center;border-bottom:1px solid #f0f3f7}.log:last-child{border:0}.time{font-size:11px;color:#708099}.place{font-size:12px;font-weight:700;color:#25374d}.detail{font-size:10px;color:#8491a2}.tag{font-size:10px;color:var(--green);background:#eaf8f3;border-radius:5px;padding:4px 7px}.tag.warn{background:#fff5e7;color:var(--amber)}.stack{display:grid;gap:16px}.pad{padding:16px 18px}.map{height:145px;background:#f1f6fa;border:1px solid #dfe8f1;border-radius:8px;margin-top:10px;position:relative}.room{position:absolute;top:45px;height:75px;background:white;border:1px solid #c9d9e8;border-radius:5px;display:grid;place-items:center;font-size:10px;color:#657890}.r1{left:7%;width:40%}.r2{left:50%;width:22%}.r3{right:6%;width:21%}.dot{position:absolute;top:37px;width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 4px #2878d025}.d1{left:12%}.d2{left:56%}.d3{right:12%}.legend{font-size:10px;color:#718198;margin-top:8px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:12px}.btn{min-height:43px;border:1px solid var(--blue);border-radius:7px;background:var(--blue);color:white;font-weight:700;font-size:12px;cursor:pointer}.btn:hover{background:#1c68ba}.btn.out{background:white;color:var(--navy);border-color:#d7e0ea}.btn:focus-visible{outline:3px solid #4cc9e8;outline-offset:2px}.history{margin-top:17px}.empty{text-align:center;color:#8794a5;font-size:11px;padding:22px}.entry{display:grid;grid-template-columns:150px 1fr;gap:10px;padding:11px 18px;border-bottom:1px solid #f0f3f7;font-size:11px}.entry time{color:#8491a2}.entry strong{color:#33475f}footer{text-align:center;color:#8996a6;font-size:10px;padding-top:22px}
+    @media(max-width:850px){.metrics{grid-template-columns:repeat(2,1fr)}.grid{grid-template-columns:1fr}.stack{grid-template-columns:1fr 1fr}}@media(max-width:560px){.wrap{width:calc(100% - 26px);padding-top:22px}.top{padding:10px 14px}.heading{align-items:start;flex-direction:column;gap:10px}.metrics{gap:9px}.card{padding:13px;min-height:120px}.value{font-size:26px}.stack{grid-template-columns:1fr}.log{grid-template-columns:55px 1fr auto;gap:6px;padding:9px 12px}.place{font-size:11px}.ph{padding:14px}.entry{grid-template-columns:1fr;gap:3px;padding:10px 14px}}
+  </style>
+</head>
+<body>
+  <header class="top"><div class="brand">SENTINEL <small>監視ダッシュボード · ポートフォリオ</small></div><div class="clock">現在時刻 <span id="clock"></span></div></header>
+  <main class="wrap">
+    <section class="heading"><div><p class="eyebrow">リアルタイム運用モニタリング</p><h1>今日の運用状況</h1><p class="desc">主要な指標とイベントをまとめ、状況をすばやく把握できるダッシュボードです。</p></div><div class="date" id="today"></div></section>
+    <section class="metrics" aria-label="本日の主要指標">
+      <article class="card"><div class="label">本日の処理件数</div><div class="value">1,284 <small>件</small></div><div class="sub">前日比 8.2% 増</div></article>
+      <article class="card"><div class="label">平均処理時間</div><div class="value">2.4 <small>分</small></div><div class="sub">目標時間内</div></article>
+      <article class="card"><div class="label">稼働中のサービス</div><div class="value">12 <small>/ 12</small></div><div class="sub">すべて正常に稼働中</div></article>
+      <article class="card"><div class="label">確認が必要な項目</div><div class="value">1 <small>件</small></div><div class="sub warn">担当者の確認待ち</div></article>
+    </section>
+    <div class="grid">
+      <section class="panel" id="activity" aria-live="polite" aria-relevant="additions"><div class="ph"><div><h2 class="pt">最近のアクティビティ</h2><p class="hint">システムで発生した主なイベント</p></div><span class="live">リアルタイム更新</span></div></section>
+      <div class="stack">
+        <section class="panel pad"><h2 class="pt">サービス状況</h2><p class="hint">各領域の稼働状況を確認できます。</p><div class="map" role="img" aria-label="3つのサービス領域が正常に稼働中"><span class="room r1">業務サービス</span><span class="room r2">データ</span><span class="room r3">サポートツール</span><i class="dot d1"></i><i class="dot d2"></i><i class="dot d3"></i></div><div class="legend">● 正常に稼働しているサービス領域</div></section>
+        <section class="panel pad"><h2 class="pt">クイックアクション</h2><p class="hint">ボタンを押すと作業履歴に記録されます。</p><div class="actions"><button class="btn" data-action="点検完了">点検完了</button><button class="btn out" data-action="レポート作成">レポート作成</button></div></section>
+      </div>
+    </div>
+    <section class="panel history"><div class="ph"><div><h2 class="pt">作業履歴</h2><p class="hint">クイックアクションで追加した項目が表示されます。</p></div></div><div class="empty" id="empty">履歴はまだありません。クイックアクションをお試しください。</div><div id="entries" aria-live="polite"></div></section>
+    <footer>SENTINEL 監視ダッシュボード · フロントエンドポートフォリオ</footer>
+  </main>
+  <script>
+    (()=>{
+      const date=document.getElementById('today'),clock=document.getElementById('clock'),entries=document.getElementById('entries'),empty=document.getElementById('empty'),activity=document.getElementById('activity');
+      const events=[
+        {place:'業務サービス',detail:'リクエストを正常に処理しました。',status:'完了'},
+        {place:'データ処理',detail:'定期同期が完了しました。',status:'完了'},
+        {place:'サポートツール',detail:'新しいリクエストが届いています。',status:'要確認',warning:true},
+        {place:'運用モニタリング',detail:'サービスの状態確認が完了しました。',status:'正常'}
+      ];
+      const dateFormat=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'long'}),timeFormat=new Intl.DateTimeFormat('ja-JP',{hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'});
+      function tick(){const now=new Date();date.textContent=dateFormat.format(now);clock.textContent=timeFormat.format(now)}
+      function addEvent(){const data=events[Math.floor(Math.random()*events.length)],now=new Date(),row=document.createElement('div'),time=document.createElement('time'),content=document.createElement('div'),place=document.createElement('div'),detail=document.createElement('div'),status=document.createElement('span');row.className='log';time.className='time';time.dateTime=now.toISOString();time.textContent=timeFormat.format(now);place.className='place';place.textContent=data.place;detail.className='detail';detail.textContent=data.detail;content.append(place,detail);status.className=data.warning?'tag warn':'tag';status.textContent=data.status;row.append(time,content,status);activity.append(row);const rows=activity.querySelectorAll('.log');if(rows.length>8)rows[0].remove();window.setTimeout(addEvent,4500+Math.random()*3500)}
+      function record(action){const now=new Date(),row=document.createElement('div'),time=document.createElement('time'),message=document.createElement('strong');row.className='entry';time.dateTime=now.toISOString();time.textContent=new Intl.DateTimeFormat('ja-JP',{year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',second:'2-digit',hourCycle:'h23'}).format(now);message.textContent=`「${action}」を記録しました。`;row.append(time,message);entries.prepend(row);empty.hidden=true}
+      document.querySelectorAll('[data-action]').forEach(button=>button.addEventListener('click',()=>record(button.dataset.action)));tick();window.setInterval(tick,1000);window.setTimeout(addEvent,1000);
+    })();
+  </script>
+</body>
+</html>
